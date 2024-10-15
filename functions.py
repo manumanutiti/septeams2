@@ -60,13 +60,34 @@ class SepTeam:
                 }
 
         return evaluations
+    
+    def last_mean(self):
+        evaluations = self.last_survey()
+        tw_data_last = []
+        hs_data_last = []
+        
+        for name, item in evaluations.items():
+            tw_data_last.append(item['team_work'])
+            hs_data_last.append(item['hard_skill'])
 
+        # Evitar división por 0
+        if len(tw_data_last) > 0:
+            tw_data_mean = round(sum(tw_data_last) / len(tw_data_last),2)
+        else:
+            tw_data_mean = 0
+        
+        if len(hs_data_last) > 0:
+            hs_data_mean = round(sum(hs_data_last) / len(hs_data_last))
+        else:
+            hs_data_mean = 0
+
+        return tw_data_mean, hs_data_mean
 
     def graph(self, evaluations, title):
         names = list(evaluations.keys())
         team_work = [evaluations[name]['team_work'] for name in names]
         hard_skill = [evaluations[name]['hard_skill'] for name in names]
-        
+        means = self.last_mean() # Corregir dinamismo
         # Añadir "jitter" a los puntos para evitar la superposición completa
         jitter_strength = 0.09
         team_work_jittered = np.array(team_work) + np.random.uniform(-jitter_strength, jitter_strength, len(team_work))
@@ -90,17 +111,21 @@ class SepTeam:
         # Añadir las áreas de colores
         fig.add_shape(type="rect", x0=0, y0=0, x1=5, y1=5,
                     fillcolor="red", opacity=0.1, line_width=0)
-        fig.add_shape(type="rect", x0=0, y0=10, x1=5, y1=5,
+        fig.add_shape(type="rect", x0=0, y0=10, x1=5, y1=means[1],
                     fillcolor="yellow", opacity=0.1, line_width=0)
-        fig.add_shape(type="rect", x0=10, y0=10, x1=5, y1=5,
+        fig.add_shape(type="rect", x0=10, y0=10, x1=means[0], y1=means[1],
                     fillcolor="green", opacity=0.1, line_width=0)
+        fig.add_shape(type="line", x0=means[0], y0=0, x1=means[0], y1=10, 
+                      line=dict(color="Red", width=2, dash="dash"))
+        fig.add_shape(type="line", x0=0, y0=means[1], x1=10, y1=means[1], 
+                      line=dict(color="Red", width=2, dash="dash"))
 
         # Configuración del layout del gráfico
         fig.update_layout(title=title,
                         xaxis_title="Team Work",
                         yaxis_title="Hard Skills",
-                        xaxis=dict(range=[0, 10.5], dtick=1),
-                        yaxis=dict(range=[0, 10.5], dtick=1),
+                        xaxis=dict(range=[0, 10.3], dtick=1),
+                        yaxis=dict(range=[0, 10.25], dtick=1),
                         showlegend=True)  # Esto asegura que la leyenda se muestre
 
         # Convertir el gráfico a HTML
