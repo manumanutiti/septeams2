@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Septeams</title>
+    <link rel="stylesheet" href="/static/index.css">
+</head>
+<body>
+    <div class="top-head">
+        <h1>SEPTeams Dashboard</h1>
+    </div>
+
+    <div class="line">
+        <form method="get" action="/">
+            <button type="submit", name="graph_type", value="last_survey" class="graph_button">Last Survey</button>
+            <button type="submit" name="graph_type" value="global" class="graph_button">Global View</button>
+            <button type="submit" name="graph_type" value="tw_evolution" class="graph_button">Team Work Evolution</button>
+            <button type="submit" name="graph_type" value="hs_evolution" class="graph_button">Hard Skills Evolution</button>
+        </form>
+    </div>
+    
+    
+
+    
+    <div>
+        {{ graph_html | safe }}  
+    </div>
+</body>
+</html>

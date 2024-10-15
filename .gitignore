@@ -1,0 +1,87 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Cython debug output
+cython_debug/
+
+# Virtual environments
+env/
+venv/
+ENV/
+VENV/
+env.bak/
+venv.bak/
+
+# Distribuciones de paquetes
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+*.manifest
+*.spec
+
+# Archivos creados por instaladores
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Archivos de caché de pytest
+.cache/
+
+# Directorios de cobertura de código
+htmlcov/
+.tox/
+.nox/
+
+# Archivos de cobertura y perfiles de prueba
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.coverage
+.coverage.*
+
+# Archivos de logs y bases de datos locales
+*.log
+*.sqlite3
+
+# Directorios de configuración de IDEs
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Archivos específicos de SO
+.DS_Store
+Thumbs.db
+
+# Archivos de control de versiones
+*.orig
+
+# Archivos de notebooks
+.ipynb_checkpoints/
+
+# Archivos de configuración de Docker
+docker-compose*.yaml
+*.env
+
+# Llaves y credenciales sensibles
+*.pem
+*.key
+*.crt
+*.env
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Archivos de configuraciones de herramientas de linting o testing
+.mypy_cache/
+.pyre/
+.pytype/

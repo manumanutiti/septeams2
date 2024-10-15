@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    
+}
+
+.top-head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    background-color: #d6fee0;
+    margin-bottom: 20px;
+}
+
+
+h1 {
+    font-family: 'Montserrat', sans-serif; 
+    text-align: center; 
+    letter-spacing: 1px; 
+    margin-bottom: 20px;
+    line-height: 1.2; 
+    text-transform: uppercase; 
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+    transition: color 0.3s ease-in-out; 
+}
+
+/* Efecto hover para el h1 */
+h1:hover {
+    color: #1e90ff; 
+}
+
+.line {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graph_button {
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    font-weight: bold;
+    border: 1px blue;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.graph_button:hover {
+    background-color: #d6fee0;
+}
