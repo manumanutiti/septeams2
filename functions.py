@@ -185,9 +185,7 @@ class SepTeam:
         hs_graph_html = fig.to_html(full_html=False)
 
         return hs_graph_html
-    
-    def global_info(self):
-        pass
+
 
     
 

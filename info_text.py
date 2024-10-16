@@ -1,9 +1,12 @@
 from functions import SepTeam
 
+sep = SepTeam()
 
-info_global = "Este gráfico muestra los datos del equipo basado en la media global de todas las valoraciones,\
+
+info_global = f"Este gráfico muestra los datos del equipo basado en la media global de todas las valoraciones,\
         por lo tanto no es la muestra visual más representativa, pero da idea una general sobre la constancia en el tiempo\
         y es un punto de apoyo para guiarnos con otros graficos"
+        
 
 info_last_survey = "Este gráfico muestra las valoraciones de la última encuesta. Las lineas rojas representan\
         las medias en los dos aspectos auditables (trabajo en equipo y Hard Skills)\
@@ -16,3 +19,20 @@ info_last_survey = "Este gráfico muestra las valoraciones de la última encuest
 info_team_work_evolution = "Evolución de las valoraciones sobre el trabajo en equipo de cada miembro a lo largo del tiempo"
 
 info_hard_skill_evolution = "Evolución de las valoraciones sobre las habilidades técnicas de cada miembro a lo largo del tiempo"
+
+
+
+#### STATS #####
+
+# ALL TIME MEANS
+tw_and_hs_global_mean = sep.global_mean()
+all_time_stats = f"Team Work All Time Mean: {tw_and_hs_global_mean[0]}\nHard Skills All time Mean: {tw_and_hs_global_mean[1]}"
+
+# LAST SURVEY MEAN
+tw_and_hs_last_mean = sep.last_mean()
+last_survey_stats = f"Team Work Last Survey Mean: {tw_and_hs_last_mean[0]}\nHard Skills Last Survey Mean: {tw_and_hs_last_mean[1]}"
+
+
+
+if __name__ == '__main__':
+        print(tw_and_hs_last_mean)
