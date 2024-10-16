@@ -21,9 +21,16 @@ class SepTeam:
         for name in self.names:
             name_evolution = df[df['name'] == name][option].to_list()
             evaluation_data[name] = name_evolution
+        
         return evaluation_data
     
     def global_mean(self):
+        tw_global_mean = round(float(df['team_work'].mean()), 2)
+        hs_global_mean = round(float(df['hard_skill'].mean()), 2)
+
+        return tw_global_mean, hs_global_mean
+    
+    def global_mean_each_member(self):
         evaluations = {}
         for name in self.names:
             team_member = df[df['name'] == name]
@@ -83,15 +90,20 @@ class SepTeam:
 
         return tw_data_mean, hs_data_mean
 
-    def graph(self, evaluations, title):
+    def graph(self, evaluations, title, means):
         names = list(evaluations.keys())
         team_work = [evaluations[name]['team_work'] for name in names]
         hard_skill = [evaluations[name]['hard_skill'] for name in names]
-        means = self.last_mean() # Corregir dinamismo
+        
         # Añadir "jitter" a los puntos para evitar la superposición completa
         jitter_strength = 0.09
         team_work_jittered = np.array(team_work) + np.random.uniform(-jitter_strength, jitter_strength, len(team_work))
         hard_skill_jittered = np.array(hard_skill) + np.random.uniform(-jitter_strength, jitter_strength, len(hard_skill))
+
+        # Limita los valores dentro del rango [0, 10]
+        team_work_jittered = np.clip(team_work_jittered, 0, 10)
+        hard_skill_jittered = np.clip(hard_skill_jittered, 0, 10)
+
 
         fig = go.Figure()
 
@@ -103,7 +115,7 @@ class SepTeam:
                 name=names[i],  # leyenda
                 text=[names[i]],
                 textposition='top center',
-                textfont=dict(size=10),
+                textfont=dict(size=12),
                 marker=dict(size=10)
 
             ))

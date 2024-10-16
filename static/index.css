@@ -59,5 +59,10 @@ h1:hover {
     width: 70%;
     margin: 0 auto;
     border-radius: 10px;
-    text-align: center;
+    font-size: 30px;
+}
+
+.graph {
+    width: 80%;
+    margin: 0 auto;
 }

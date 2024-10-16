@@ -16,8 +16,8 @@ sep = SepTeam()
 def get_graph_page(request: Request, graph_type: str = Query("last_survey")):
     info = ""
     if graph_type == "global":
-        global_evaluations = sep.global_mean()
-        graph_html = sep.graph(evaluations=global_evaluations, title="All Time View")
+        global_evaluations = sep.global_mean_each_member()
+        graph_html = sep.graph(evaluations=global_evaluations, title="All Time View", means=sep.global_mean())
         info = info_global
     elif graph_type == "tw_evolution":
         graph_html = sep.tw_evolution()
@@ -27,6 +27,6 @@ def get_graph_page(request: Request, graph_type: str = Query("last_survey")):
         info = info_hard_skill_evolution
     elif graph_type == "last_survey":
         last_survey = sep.last_survey()
-        graph_html = sep.graph(evaluations=last_survey, title="Last Survey")
+        graph_html = sep.graph(evaluations=last_survey, title="Last Survey", means=sep.last_mean())
         info = info_last_survey
     return templates.TemplateResponse("index.html", {"request": request, "graph_html": graph_html, "info": info})
