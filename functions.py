@@ -2,12 +2,23 @@ import pandas as pd
 import sqlite3
 import plotly.graph_objs as go 
 import numpy as np
+import random
+
 
 
 
 conn = sqlite3.connect('DataBase.db')
 select = "SELECT * FROM team_scores_1"
 df = pd.read_sql_query(select, conn)
+
+
+### Anonymize ###
+pseudo_names = ["Zorix", "Lumen", "Taris", "Sivel", "Nydra", "Voren", "Kaira", "Elvin", "Zaris",\
+                "Relon", "Tirin", "Almen", "Oulen", "Bayl", "Nist", "Cloud", "Elmon"]
+names = df["name"].unique().tolist()
+random_pseudo_names = random.sample(pseudo_names, len(names))
+anonymous_zip_dict = dict(zip(names, random_pseudo_names))
+anonymous_names = [name for name in anonymous_zip_dict.values()]
 
 
 class SepTeam:
@@ -107,13 +118,13 @@ class SepTeam:
 
         fig = go.Figure()
 
-        for i in range(len(names)):
+        for i in range(len(anonymous_names)):
             fig.add_trace(go.Scatter(
                 x=[round(team_work_jittered[i], 1)],
                 y=[round(hard_skill_jittered[i], 1)],
                 mode='markers+text',
-                name=names[i],  # leyenda
-                text=[names[i]],
+                name=anonymous_names[i],  # leyenda
+                text=[anonymous_names[i]],
                 textposition='top center',
                 textfont=dict(size=12),
                 marker=dict(size=10)
@@ -145,12 +156,27 @@ class SepTeam:
 
         return graph_html
     
+    def anon(self, option):
+        evolution_anon = {}
+        data = self.get_data(option)
+
+        for real_name, evaluation_data in data.items():
+            if real_name in anonymous_zip_dict:
+                new_name = anonymous_zip_dict[real_name]
+            else:
+                new_name = "Doe"  # Nombre genérico si no hay pseudónimo
+            evolution_anon[new_name] = evaluation_data
+
+        return evolution_anon
+
+
     # Graph para evolucion de team_work
     def tw_evolution(self):
-        tw_evolution = self.get_data('team_work')
+        tw_evolution_data = self.anon('team_work')
+
         fig = go.Figure()
 
-        for name, scores in tw_evolution.items():
+        for name, scores in tw_evolution_data.items():
             fig.add_trace(go.Scatter(x=self.dates, y=scores, mode='lines+markers', name=name))
 
         fig.update_layout(
@@ -168,7 +194,9 @@ class SepTeam:
     # Grafico para hard_skill evolution
 
     def hs_evolution(self):
-        hs_evolution_data = self.get_data('hard_skill')
+        hs_evolution_data = self.anon('hard_skill')
+        
+        
         fig = go.Figure()
 
         for name, scores in hs_evolution_data.items():
@@ -190,3 +218,7 @@ class SepTeam:
     
 
 
+if __name__ == '__main__':
+    sep = SepTeam()
+    data = sep.get_data('team_work')
+    print(data)

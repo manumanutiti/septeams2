@@ -2,7 +2,13 @@ from functions import SepTeam
 
 sep = SepTeam()
 
+### Pseudo ###
 
+pseudo_names = ["Zorix", "Lumen", "Taris", "Sivel", "Nydra", "Voren", "Kaira", "Elvin", "Zaris",\
+                "Relon", "Tirin", "Almen", "Oulen", "Bayl", "Nist", "Cloud", "El"]
+
+
+### INFO ###
 info_global = f"Este gráfico muestra los datos del equipo basado en la media global de todas las valoraciones,\
         por lo tanto no es la muestra visual más representativa, pero da idea una general sobre la constancia en el tiempo\
         y es un punto de apoyo para guiarnos con otros graficos"
