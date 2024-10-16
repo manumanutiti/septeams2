@@ -22,9 +22,9 @@ info_last_survey = "Este gráfico muestra las valoraciones de la última encuest
         rectángulo ya pueden ser nuevos empleados, compañeros desmotivados o quizás reflejar un problema \
         del que no se tiene constancia y que puede ser evitado antes de que explote."
 
-info_team_work_evolution = "Evolución de las valoraciones sobre el trabajo en equipo de cada miembro a lo largo del tiempo"
+info_team_work_evolution = "Evolución de las valoraciones sobre el trabajo en equipo a lo largo del tiempo"
 
-info_hard_skill_evolution = "Evolución de las valoraciones sobre las habilidades técnicas de cada miembro a lo largo del tiempo"
+info_hard_skill_evolution = "Evolución de las valoraciones sobre las habilidades técnicas a lo largo del tiempo"
 
 
 
@@ -32,12 +32,16 @@ info_hard_skill_evolution = "Evolución de las valoraciones sobre las habilidade
 
 # ALL TIME MEANS
 tw_and_hs_global_mean = sep.global_mean()
-all_time_stats = f"Team Work All Time Mean: {tw_and_hs_global_mean[0]}\nHard Skills All time Mean: {tw_and_hs_global_mean[1]}"
+all_time_stats = (
+        f"Team Work All Time Mean: {tw_and_hs_global_mean[0]}<br>"
+        f"Hard Skills All Time Mean: {tw_and_hs_global_mean[1]}"
+    )
 
 # LAST SURVEY MEAN
 tw_and_hs_last_mean = sep.last_mean()
-last_survey_stats = f"Team Work Last Survey Mean: {tw_and_hs_last_mean[0]}\nHard Skills Last Survey Mean: {tw_and_hs_last_mean[1]}"
-
+last_survey_stats = (f"Team Work Last Survey Mean: {tw_and_hs_last_mean[0]}<br>"
+                     f"Hard Skills Last Survey Mean: {tw_and_hs_last_mean[1]}"
+)
 
 
 if __name__ == '__main__':

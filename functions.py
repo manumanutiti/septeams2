@@ -156,6 +156,7 @@ class SepTeam:
 
         return graph_html
     
+    # Funcion para anonimizar datos en formato {"pseudoname": [n, n2, n3, n4, ....]}
     def anon(self, option):
         evolution_anon = {}
         data = self.get_data(option)
@@ -164,20 +165,35 @@ class SepTeam:
             if real_name in anonymous_zip_dict:
                 new_name = anonymous_zip_dict[real_name]
             else:
-                new_name = "Doe"  # Nombre genérico si no hay pseudónimo
+                new_name = "Doe"  
             evolution_anon[new_name] = evaluation_data
 
         return evolution_anon
+    
+    # Formato {"date": n, "date2": n2}
+    def global_mean_date(self, option):
+        global_mean_by_date = {}
+
+        for date in self.dates:
+            date_data = df[df['date'] == date]
+            tw_mean_by_date = date_data[option].mean()
+            global_mean_by_date[date] = round(float(tw_mean_by_date), 2)
+
+        return global_mean_by_date
 
 
     # Graph para evolucion de team_work
     def tw_evolution(self):
-        tw_evolution_data = self.anon('team_work')
+        
+        tw_evolution_data = self.global_mean_date(option="team_work")
 
         fig = go.Figure()
 
-        for name, scores in tw_evolution_data.items():
-            fig.add_trace(go.Scatter(x=self.dates, y=scores, mode='lines+markers', name=name))
+        # Convertir fechas y puntuaciones en listas para pasarlas a go.Scatter
+        dates = list(tw_evolution_data.keys())
+        scores = list(tw_evolution_data.values())
+
+        fig.add_trace(go.Scatter(x=dates, y=scores, mode='lines+markers'))
 
         fig.update_layout(
             title="TeamWork Evolution",
@@ -194,14 +210,15 @@ class SepTeam:
     # Grafico para hard_skill evolution
 
     def hs_evolution(self):
-        hs_evolution_data = self.anon('hard_skill')
-        
+        hs_evolution_data = self.global_mean_date(option="hard_skill")
         
         fig = go.Figure()
 
-        for name, scores in hs_evolution_data.items():
-            fig.add_trace(go.Scatter(x=self.dates, y=scores, mode='lines+markers', name=name))
+        dates = list(hs_evolution_data.keys())
+        scores = list(hs_evolution_data.values())
         
+        fig.add_trace(go.Scatter(x=dates, y=scores, mode='lines+markers'))
+
         fig.update_layout(
             title="Hard-Skills Evolution",
             xaxis_title="Date",
